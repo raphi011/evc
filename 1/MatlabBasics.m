@@ -22,12 +22,13 @@ function[v1, v2, v3, M, M_30x50, v_M_Product, M_v_Product, M_M_Product, M_M_comp
 %      A     B     C
 %      D     E     F
 %      G     A     B
-clc
+
 
 v1 = [0,8,2];
 v2 = [8;6;3];
 M = [0,8,2;8,6,3;0,0,8];
 
+clc
 % 2) create a sequence: create a Vector 'v3' with elements starting at the
 % smallest digit of your Matrikel number to the largest, each element 0.25 
 % greater than the one before. Use the sequence operator ':'
@@ -74,11 +75,9 @@ M_M_Product = Matrix_X_Matrix(M, M2);
 M_M_componentwise = Matrix_Xc_Matrix(M, M2);
 
 % 5) cross product of 2 vectors (use v1 and v2)
-cross(v1,v2)
 crossP = crossProduct(v1,v2);
 
 % 6) dot product (use v1 and v2)
-dot(v1,v2)
 dotP = dotProduct(v1,v2);
 
 
@@ -127,7 +126,7 @@ for i=1:size(M,1)
     end
 end
 
-result = newMatrix
+result = newMatrix;
 
 end
 
@@ -152,7 +151,7 @@ rowVector(1) = v1(2)*v2(3) - v1(3)*v2(2);
 rowVector(2) = v1(3)*v2(1) - v1(1)*v2(3);
 rowVector(3) = v1(1)*v2(2) - v1(2)*v2(1);
 
-result = rowVector
+result = rowVector;
 
 end
 
@@ -163,7 +162,7 @@ for i=1:length(v1)
     dotproduct =  dotproduct + v1(i)*v2(i);
 end
 
-result = dotproduct
+result = dotproduct;
 
 end
 
