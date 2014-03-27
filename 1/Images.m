@@ -1,6 +1,7 @@
-function[image_swapped, image_mark_blue, image_masked, image_reshaped, image_convoluted, image_edge] = Images()
+function[image_swapped, image_mark_blue, image_masked, image_reshaped, image_convoluted, image_edge] = Images();
 
 %% Initialization. Do not change anything here
+clc;
 input_path = 'lena_color.jpg';
 output_path = 'lena_output.png';
 
@@ -13,31 +14,41 @@ image_edge = [];
 
 %% I. Images basics
 % 1) Load image from 'input_path'
-%TODO: Add your code here
+image = imread(input_path);
+%whos bild
+
 
 % 2) Convert the image from 1) to double format with range [0, 1]. DO NOT USE LOOPS.
-%TODO: Add your code here
+image = im2double(image);
+%whos bild
 
 % 3) Use the image from 2) to create a image where the red and the green channel
 % are swapped. The result should be stored in image_swapped. DO NOT USE LOOPS.
-%TODO: Add your code here
+image_swapped = image;
+r=image(:,:,1);
+g=image(:,:,2);
+image_swapped(:,:,1)=g;
+image_swapped(:,:,2)=r;
 
 % 4) Display the swapped image
-%TODO: Add your code here
+imshow(image_swapped);
 
 % 5) Write the swapped image to the path specified in output_path. The
 % image should be in png format.
-%TODO: Add your code here
+imwrite(image_swapped,output_path);
 
 % 6) Create logical image where every pixel is marked that's blue channel
 % is greater than 0.5. The result should be stored in image_mark_blue. 
 % DO NOT USE LOOPS.
-%TODO: Add your code here
+image_mark_blue = logical(image(:,:,3)>0.5)
 
 % 7) Set all pixels in the original image to black where image_mark_blue is
 % true (where blue > 0.5). Store the result in image_masked. Use repmat to
 % complete this task. DO NOT USE LOOPS.
-%TODO: Add your code here
+pseudorgb = repmat(image_mark_blue, [1 1 3]);
+image_masked = image;
+image_masked(pseudorgb) = 0
+imshow(image_masked)
 
 % 8) Convert the original image to a grayscale image and reshape it from
 % 512x512 to 1024x256. The result should be stored in 'image_reshaped' DO NOT USE LOOPS.
