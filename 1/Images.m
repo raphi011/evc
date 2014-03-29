@@ -47,18 +47,21 @@ image_mark_blue = logical(image(:,:,3)>0.5)
 % complete this task. DO NOT USE LOOPS.
 pseudorgb = repmat(image_mark_blue, [1 1 3]);
 image_masked = image;
-image_masked(pseudorgb) = 0
-imshow(image_masked)
+image_masked(pseudorgb) = 0;
+imshow(image_masked);
 
 % 8) Convert the original image to a grayscale image and reshape it from
 % 512x512 to 1024x256. The result should be stored in 'image_reshaped' DO NOT USE LOOPS.
-%TODO: Add your code here
+image_reshaped = rgb2gray(image);
+part1 = image_reshaped([1:256],:);
+part2 = image_reshaped([257:512],:);
+image_reshaped = cat(2,part1,part2);
 
 %% II. Filters and convolutions
 
 % 1) Use fspecial to create a 3x3 gaussian filter with sigma=1.0
 %TODO: Delete the next line and add your code here
-gauss_kernel = [0, 0, 0; 0, 0, 0; 0, 0, 0];
+gauss_kernel = fspecial('gaussian',[3 3],1.0);
 
 % 2) Implement the evc_filter function. You are allowed to use loops for
 % this task. You can assume that the kernel is always of size 3x3.
@@ -79,7 +82,7 @@ end
 % kernel: The filter kernel
 function [result] = evc_filter(input, kernel)
 
-    %TODO: Add your code here
+    
     result = input;
 
 end
