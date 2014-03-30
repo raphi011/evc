@@ -73,7 +73,8 @@ image_convoluted = evc_filter(image_swapped, gauss_kernel);
 % 3) Create a image showing the vertical edges in image_reshaped using the sobel filter.
 % For this task you can use either the evc_filter method or imfilter/conv.
 % The result should be stored in image_edge. DO NOT USE LOOPS.
-%TODO: Add your code here
+vertical_sobel_filter = [-1,-2,-1;0,0,0;1,2,1];
+image_edges = imfilter(image_reshaped,vertical_sobel_filter);
 
 end
 
@@ -81,8 +82,33 @@ end
 % input: A rgb-image
 % kernel: The filter kernel
 function [result] = evc_filter(input, kernel)
-
+    matrixSize = size(input);
+    
+    for row=1:matrixSize(1)
+        for column=1:matrixSize(2)
+            
+            newValue = get_value(row-1,column-1,input) * kernel(1,1);
+            newValue = newValue + get_value(row-1,column,input) * kernel(1,2);
+            newValue = newValue + get_value(row-1,column+1,input) * kernel(1,3);
+            newValue = newValue + get_value(row,column -1,input) * kernel(2,1);
+            newValue = newValue + get_value(row,column,input) * kernel(2,2);
+            newValue = newValue + get_value(row,column +1,input) * kernel(2,3);
+            newValue = newValue + get_value(row+1,column-1,input) * kernel(3,1);
+            newValue = newValue + get_value(row+1,column,input) * kernel(3,2);
+            newValue = newValue + get_value(row+1,column+1,input) * kernel(3,3);
+            
+            input(row,column) = newValue;
+        end
+    end
     
     result = input;
 
+end
+
+function [value] = get_value(x,y,input)
+    if (x<1 || y<1 || x> size(input,2)|| y > size(input,1))
+        value = 0;
+    else
+        value = input(x,y);
+    end
 end
