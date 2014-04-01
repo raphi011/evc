@@ -1,7 +1,7 @@
 function[matrix_translate, matrix_rotate, matrix_scale, rotated_vertices, image1_vertices, image2_vertices, image3_vertices, image4_vertices] = Transformations()
 
 %% I. Transformations and Plotting
-
+clc
 % 1) Implement the following matrix functions. They can be found at the
 % bottom of the file
 matrix_translate = mtranslate(1, 2);
@@ -34,18 +34,16 @@ end
 % Returns a 3x3 translation matrix
 % tx, ty: translation along x and y
 function[matrix] =  mtranslate(tx, ty)
-
-    % TODO: Implement this function
-    matrix = [];
+    
+    matrix = [1,0,tx;0,1,ty;0,0,1];
 
 end
 
 % Returns a 3x3 counter-clockwise rotation matrix
 % angle: rotation angle in degrees
 function[matrix] = mrotate(angle)
-
-    % TODO: Implement this function
-    matrix = [];
+    % wahrscheinlich clockwise, gehört aber counter-clockwise. fix!!
+    matrix = [cos(angle),-sin(angle),0;sin(angle),cos(angle),0;0,0,1];
 
 end
 
@@ -53,8 +51,7 @@ end
 % sx, sy: scaling in x and y direction
 function[matrix] = mscale(sx, sy)
 
-    % TODO: Implement this function
-    matrix = [];
+    matrix = [sx,0,0;0,sy,0;0,0,1];
 
 end
 
@@ -78,7 +75,11 @@ hold on;
 plot([-100, 100], [0, 0], '-g');
 plot([0, 0], [-100, 100], '-g');
 
+
 % TODO: Display the vertices (v) using the plot function
+for i=1:size(v,2)-1
+   plot(v(1:2,i),v(1:2,i+1),'-b')
+end
 
 %Finish drawing
 hold off;
