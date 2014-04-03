@@ -4,29 +4,30 @@ function[matrix_translate, matrix_rotate, matrix_scale, rotated_vertices, image1
 clc
 % 1) Implement the following matrix functions. They can be found at the
 % bottom of the file
-matrix_translate = mtranslate(1, 2);
-matrix_rotate = mrotate(45);
-matrix_scale = mscale(2, 3);
+matrix_translate = mtranslate(1, 2)
+matrix_rotate = mrotate(45)
+matrix_scale = mscale(2, 3)
 
 % 2) Finish the display_vertices function
-quad = [0, 0, 1; 1, 0, 1; 1, 1, 1; 0, 1, 1; 0, 0, 1]';
+quad = [0, 0, 1; 1, 0, 1; 1, 1, 1; 0, 1, 1; 0, 0, 1]'
 display_vertices(quad, 11, 'Original Quad');
 
 % 3) Implement the transform_vertices function
-rotated_vertices = transform_vertices(quad, matrix_rotate);
+rotated_vertices = transform_vertices(quad, matrix_rotate)
 display_vertices(rotated_vertices, 12, 'Rotated Quad');
 
 % 4) Delete the next 4 lines and use the implemented functions to produce 
 % the Target Images 1-4 (see submission system) and display them.
-image1_vertices = quad;
+image1_vertices = transform_vertices(quad,matrix_translate)
 image2_vertices = quad;
 image3_vertices = quad;
 image4_vertices = quad;
 
 display_vertices(image1_vertices, 13, 'Target Image 1');
-display_vertices(image2_vertices, 14, 'Target Image 2');
-display_vertices(image3_vertices, 15, 'Target Image 3');
-display_vertices(image4_vertices, 16, 'Target Image 4');
+%display_vertices(image2_vertices, 14, 'Target Image 2');
+%display_vertices(image3_vertices, 15, 'Target Image 3');
+%display_vertices(image4_vertices, 16, 'Target Image 4');
+
 
 
 end
@@ -42,8 +43,8 @@ end
 % Returns a 3x3 counter-clockwise rotation matrix
 % angle: rotation angle in degrees
 function[matrix] = mrotate(angle)
-    % wahrscheinlich clockwise, gehört aber counter-clockwise. fix!!
-    matrix = [cos(angle),-sin(angle),0;sin(angle),cos(angle),0;0,0,1];
+    % wahrscheinlich clockwise, geh?rt aber counter-clockwise. fix!!
+    matrix = [cosd(angle),-sind(angle),0;sind(angle),cosd(angle),0;0,0,1];
 
 end
 
@@ -76,10 +77,11 @@ plot([-100, 100], [0, 0], '-g');
 plot([0, 0], [-100, 100], '-g');
 
 
-% TODO: Display the vertices (v) using the plot function
-for i=1:size(v,2)-1
-   plot(v(1:2,i),v(1:2,i+1),'-b')
-end
+%Display the vertices (v) using the plot function
+x = v(1,:)
+y = v(2,:)
+plot(x,y,'-b')
+
 
 %Finish drawing
 hold off;
@@ -91,8 +93,14 @@ end
 % m: transformation matrix
 % Returns a list of transformed vertices of the same size as v
 function[result] = transform_vertices(v, m)
-
-    % TODO: Implement this function
+%     size(v,2)
+    for i=1:size(v,2)
+        m;
+        v(:,i);
+        m * v(:,i);
+        v(:,i) = m * v(:,i) 
+    end
+    
     result = v;
 
 end
