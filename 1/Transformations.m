@@ -4,9 +4,9 @@ function[matrix_translate, matrix_rotate, matrix_scale, rotated_vertices, image1
 clc
 % 1) Implement the following matrix functions. They can be found at the
 % bottom of the file
-matrix_translate = mtranslate(1, 2)
-matrix_rotate = mrotate(45)
-matrix_scale = mscale(2, 3)
+matrix_translate = mtranslate(1, 2);
+matrix_rotate = mrotate(45);
+matrix_scale = mscale(2, 3);
 
 % 2) Finish the display_vertices function
 quad = [0, 0, 1; 1, 0, 1; 1, 1, 1; 0, 1, 1; 0, 0, 1]'
@@ -16,17 +16,31 @@ display_vertices(quad, 11, 'Original Quad');
 rotated_vertices = transform_vertices(quad, matrix_rotate)
 display_vertices(rotated_vertices, 12, 'Rotated Quad');
 
+
 % 4) Delete the next 4 lines and use the implemented functions to produce 
 % the Target Images 1-4 (see submission system) and display them.
-image1_vertices = transform_vertices(quad,matrix_translate)
-image2_vertices = quad;
-image3_vertices = quad;
-image4_vertices = quad;
+
+image1_vertices = transform_vertices(quad,mrotate(25));
+image1_vertices = transform_vertices(image1_vertices,mtranslate(2,0));
+
+image2_vertices = transform_vertices(quad,mtranslate(2,0));
+image2_vertices = transform_vertices(image2_vertices,mrotate(25));
+
+image3_vertices = transform_vertices(quad,mtranslate(-0.5,-0.5));
+image3_vertices = transform_vertices(image3_vertices,mscale(1,2));
+image3_vertices = transform_vertices(image3_vertices,mtranslate(0.5,1));
+image3_vertices = transform_vertices(image3_vertices,mrotate(25));
+image3_vertices = transform_vertices(image3_vertices,mtranslate(2,0))
+
+image4_vertices = transform_vertices(quad,mtranslate(-0.5,-0.5));
+image4_vertices = transform_vertices(image4_vertices,mrotate(45));
+image4_vertices = transform_vertices(image4_vertices,mscale(2,1));
+image4_vertices = transform_vertices(image4_vertices,mtranslate(2.5,0))
 
 display_vertices(image1_vertices, 13, 'Target Image 1');
-%display_vertices(image2_vertices, 14, 'Target Image 2');
-%display_vertices(image3_vertices, 15, 'Target Image 3');
-%display_vertices(image4_vertices, 16, 'Target Image 4');
+display_vertices(image2_vertices, 14, 'Target Image 2');
+display_vertices(image3_vertices, 15, 'Target Image 3');
+display_vertices(image4_vertices, 16, 'Target Image 4');
 
 
 
@@ -66,6 +80,7 @@ function[] = display_vertices(v, id, head)
 figure(id);
 clf;
 %Set title
+
 title(head);
 %Fix axis and set aspect ratio
 axis([-5, 5, -5, 5]);
@@ -93,11 +108,8 @@ end
 % m: transformation matrix
 % Returns a list of transformed vertices of the same size as v
 function[result] = transform_vertices(v, m)
-%     size(v,2)
+
     for i=1:size(v,2)
-        m;
-        v(:,i);
-        m * v(:,i);
         v(:,i) = m * v(:,i) 
     end
     
