@@ -11,6 +11,7 @@ function [result] = evc_gamma_correction(input, gamma, saturate)
     %NOTE: Die folgende Zeile kann gel?scht werden. Sie verhindert, dass
     %die Funktion, solange sie nicht implementiert wurde, abst?rzt.
     
+    %TODO Gamma^(-1) berechnen und auf Division durch 0 achten.
     if (gamma <= 0.0000000001)
         gamma = 0.0000000001;
     end
@@ -31,6 +32,7 @@ function [result] = evc_gamma_correction(input, gamma, saturate)
         normalized = input.*(1/maxValue);
         
         brightness = rgb2gray(normalized).* maxValue;
+        size(brightness)
         brightness3 = repmat(brightness, [1 1 3]);
         
         chromaticity = input./brightness3;
@@ -43,7 +45,7 @@ function [result] = evc_gamma_correction(input, gamma, saturate)
         
         
         
-        %TODO Gamma^(-1) berechnen und auf Division durch 0 achten.
+        
     else           
         %TODO Alle Intensit?tswerte m?ssen mit gamma^-1 potenziert werden   
         input = input.^gamma;
