@@ -28,7 +28,20 @@ function [result] = evc_demosaic(input, neutral)
     G(1:2:end, 2:2:end) = input(1:2:end, 2:2:end) / neutral(2); % 1...green
     B(2:2:end, 2:2:end) = input(2:2:end, 2:2:end) / neutral(3); % 1...blue
     
+    %R(2:2:end, 2:2:end) = input(2:2:end, 2:2:end) / neutral(1); % 1...red
+    %G(2:2:end, 1:2:end) = input(2:2:end, 1:2:end) / neutral(2); % 1...green
+    %G(1:2:end, 2:2:end) = input(1:2:end, 2:2:end) / neutral(2); % 1...green
+    %B(1:2:end, 1:2:end) = input(1:2:end, 1:2:end) / neutral(3); % 1...blue
     
+    %R(2:2:end, 1:2:end) = input(2:2:end, 1:2:end) / neutral(1); % 1...red
+    %G(1:2:end, 1:2:end) = input(1:2:end, 1:2:end) / neutral(2); % 1...green
+    %G(2:2:end, 2:2:end) = input(2:2:end, 2:2:end) / neutral(2); % 1...green
+    %B(1:2:end, 2:2:end) = input(1:2:end, 2:2:end) / neutral(3); % 1...blue
+    
+    %R(1:2:end, 2:2:end) = input(1:2:end, 2:2:end) / neutral(1); % 1...red
+    %G(1:2:end, 1:2:end) = input(1:2:end, 1:2:end) / neutral(2); % 1...green
+    %G(2:2:end, 2:2:end) = input(2:2:end, 2:2:end) / neutral(2); % 1...green
+    %B(2:2:end, 1:2:end) = input(2:2:end, 1:2:end) / neutral(3); % 1...blue
     
     %TODO Interpoliere die fehlenden Farbwerte, wie in der Angabe beschrieben.
     
