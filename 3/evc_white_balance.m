@@ -6,10 +6,14 @@ function [result] = evc_white_balance(input, white)
 %   white ... ein RGB Vektor mit der Farbe, die weiß werden soll
 %   AUSGABE
 %   result... Ergebnis nach dem Weißabgleich
-
+    
+    R = input(:,:,1) / white(1);
+    G = input(:,:,2) / white(2);
+    B = input(:,:,3) / white(3);
+    
+    result = cat(3,R,G,B);
     %NOTE: Die folgende Zeile kann gelöscht werden. Sie verhindert, dass
     %die Funktion, solange sie nicht implementiert wurde, abstürzt.
-    result = input;
     
     %TODO: Berechne den Weißabgleich mit dem white Wert
     

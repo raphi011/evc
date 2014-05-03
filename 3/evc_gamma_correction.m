@@ -10,8 +10,10 @@ function [result] = evc_gamma_correction(input, gamma, saturate)
 
     %NOTE: Die folgende Zeile kann gelöscht werden. Sie verhindert, dass
     %die Funktion, solange sie nicht implementiert wurde, abstürzt.
-    result = input;
     
+    maxValue = max(input(:))
+    input = input  * (1/maxValue);
+    input = rgb2gray(input) * maxValue;
     %TODO Gamma^(-1) berechnen und auf Division durch 0 achten.
     
     if (saturate)
@@ -23,4 +25,6 @@ function [result] = evc_gamma_correction(input, gamma, saturate)
     else           
         %TODO Alle Intensitätswerte müssen mit gamma^-1 potenziert werden    
     end
+    
+    result = input;
 end
