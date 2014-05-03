@@ -1,2 +1,6 @@
 *.m~
 *.asv
+3/gui*
+3/*.jpg
+3/*.fig
+3/*.tiff
