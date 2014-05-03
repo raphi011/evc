@@ -15,7 +15,6 @@ image_edge = [];
 %% I. Images basics
 % 1) Load image from 'input_path'
 image = imread(input_path);
-%whos bild
 
 
 % 2) Convert the image from 1) to double format with range [0, 1]. DO NOT USE LOOPS.
@@ -40,7 +39,7 @@ imwrite(image_swapped,output_path);
 % 6) Create logical image where every pixel is marked that's blue channel
 % is greater than 0.5. The result should be stored in image_mark_blue. 
 % DO NOT USE LOOPS.
-image_mark_blue = logical(image(:,:,3)>0.5)
+image_mark_blue = logical(image(:,:,3)>0.5);
 
 % 7) Set all pixels in the original image to black where image_mark_blue is
 % true (where blue > 0.5). Store the result in image_masked. Use repmat to
@@ -48,7 +47,6 @@ image_mark_blue = logical(image(:,:,3)>0.5)
 pseudorgb = repmat(image_mark_blue, [1 1 3]);
 image_masked = image;
 image_masked(pseudorgb) = 0;
-imshow(image_masked);
 
 % 8) Convert the original image to a grayscale image and reshape it from
 % 512x512 to 1024x256. The result should be stored in 'image_reshaped' DO NOT USE LOOPS.
@@ -74,8 +72,7 @@ image_convoluted = evc_filter(image_swapped, gauss_kernel);
 % For this task you can use either the evc_filter method or imfilter/conv.
 % The result should be stored in image_edge. DO NOT USE LOOPS.
 vertical_sobel_filter = [-1,-2,-1;0,0,0;1,2,1];
-image_edges = imfilter(image_reshaped,vertical_sobel_filter);
-
+image_edges2 = evc_filter(image_reshaped,vertical_sobel_filter);
 end
 
 % Returns the input image filtered with the kernel
@@ -84,31 +81,18 @@ end
 function [result] = evc_filter(input, kernel)
     matrixSize = size(input);
     
-    for row=1:matrixSize(1)
-        for column=1:matrixSize(2)
-            
-            newValue = get_value(row-1,column-1,input) * kernel(1,1);
-            newValue = newValue + get_value(row-1,column,input) * kernel(1,2);
-            newValue = newValue + get_value(row-1,column+1,input) * kernel(1,3);
-            newValue = newValue + get_value(row,column -1,input) * kernel(2,1);
-            newValue = newValue + get_value(row,column,input) * kernel(2,2);
-            newValue = newValue + get_value(row,column +1,input) * kernel(2,3);
-            newValue = newValue + get_value(row+1,column-1,input) * kernel(3,1);
-            newValue = newValue + get_value(row+1,column,input) * kernel(3,2);
-            newValue = newValue + get_value(row+1,column+1,input) * kernel(3,3);
-            
-            input(row,column) = newValue;
-        end
-    end
+    result = zeros(matrixSize);
+
+    image = padarray(input, [1,1]);
     
-    result = input;
-
-end
-
-function [value] = get_value(x,y,input)
-    if (x<1 || y<1 || x> size(input,2)|| y > size(input,1))
-        value = 0;
-    else
-        value = input(x,y);
+    for c = 1:size(input,3)
+        for row=1:matrixSize(1)
+            for column=1:matrixSize(2)
+                matrix = image(row:row+2,column:column+2,c);
+                matrix = matrix.*kernel;
+                
+                result(row,column,c) = sum(matrix(:));
+            end
+        end
     end
 end

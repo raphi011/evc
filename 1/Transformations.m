@@ -18,15 +18,15 @@ display_vertices(rotated_vertices, 12, 'Rotated Quad');
 
 % 4) Delete the next 4 lines and use the implemented functions to produce 
 % the Target Images 1-4 (see submission system) and display them.
-image1_vertices = transform_vertices(quad,matrix_translate)
-image2_vertices = quad;
-image3_vertices = quad;
-image4_vertices = quad;
+image1_vertices = transform_vertices(transform_vertices(quad, mrotate(25)), mtranslate(2,0));
+image2_vertices = transform_vertices(transform_vertices(quad, mtranslate(2,0)), mrotate(25));
+image3_vertices = transform_vertices(transform_vertices(transform_vertices(quad, mscale(1,2)), mrotate(25)), mtranslate(2,0));
+image4_vertices = transform_vertices(transform_vertices(transform_vertices(quad,mrotate(45)), mscale(2,1)), mtranslate(2.5,-sqrt(2)/2));
 
 display_vertices(image1_vertices, 13, 'Target Image 1');
-%display_vertices(image2_vertices, 14, 'Target Image 2');
-%display_vertices(image3_vertices, 15, 'Target Image 3');
-%display_vertices(image4_vertices, 16, 'Target Image 4');
+display_vertices(image2_vertices, 14, 'Target Image 2');
+display_vertices(image3_vertices, 15, 'Target Image 3');
+display_vertices(image4_vertices, 16, 'Target Image 4');
 
 
 
@@ -93,11 +93,8 @@ end
 % m: transformation matrix
 % Returns a list of transformed vertices of the same size as v
 function[result] = transform_vertices(v, m)
-%     size(v,2)
+
     for i=1:size(v,2)
-        m;
-        v(:,i);
-        m * v(:,i);
         v(:,i) = m * v(:,i) 
     end
     
