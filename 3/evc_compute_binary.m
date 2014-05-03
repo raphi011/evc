@@ -22,7 +22,6 @@ function [result] = evc_compute_binary(input, x, top)
     input(input > x) = high;   
     input(input <= x) = low;
     
-    
 
     %NOTE: Die folgende Zeile kann gel?scht werden. Sie verhindert, dass
     %die Funktion, solange sie nicht implementiert wurde, abst?rzt.

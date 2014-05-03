@@ -18,19 +18,24 @@ function [result asShotNeutral] = evc_black_level(input, filename)
     %verhindern, dass die Funktion, solange sie nicht implementiert wurde,
     %abst?rzt.
     
-    img = imfinfo(filename);
-    blackLevel = img.BlackLevel;
-    maxSampleValue = img.MaxSampleValue;
-    asShotNeutral = img.AsShotNeutral;
     
-    result = (double(input)-blackLevel)/ (maxSampleValue - blackLevel);
+    
+   
     
     %TODO Bestimme den Schwarzwert (BlackLevel) und den neutralen
     %     Wei?abgleich (AsShotNeutral) anhand der Bildinformationen
     %     (siehe Matlab-Hilfe zur Funktion imfinfo).
     
+    img = imfinfo(filename);
+    blackLevel = img.BlackLevel;
+    maxSampleValue = img.MaxSampleValue;
+    asShotNeutral = img.AsShotNeutral;
+    
     %TODO Verschiebe und skaliere den Kontrast so, dass Schwarz auf 0 und
     %     Wei? auf 1 abgebildet wird. Die Bilder in deinem Datensatz haben
     %     alle den Wei?wert auf 65535 gesetzt.
+    
+     result = (double(input)-blackLevel)/(maxSampleValue - blackLevel);
+     result(result<0) = 0;
 end
 
